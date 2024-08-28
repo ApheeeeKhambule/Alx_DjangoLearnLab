@@ -1,9 +1,11 @@
 
 # api/views.py
-from rest_framework import viewsets  # Import viewsets from DRF
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated  # Import IsAuthenticated permission
 from .models import Book
 from .serializers import BookSerializer
 
-class BookViewSet(viewsets.ModelViewSet):  # Extend ModelViewSet for CRUD operations
+class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]  # Apply permission class
