@@ -32,3 +32,22 @@ def book_delete(request, pk):
         book.delete()
         # Redirect or render success message
     return render(request, 'bookshelf/book_confirm_delete.html', {'book': book})
+
+from django.shortcuts import render, redirect
+from .forms import BookForm
+from .models import Book
+
+def add_book(request):
+    if request.method == 'POST':
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('book_list')
+    else:
+        form = BookForm()
+    return render(request, 'bookshelf/add_book.html', {'form': form})
+
+def book_list(request):
+    books = Book.objects.all()
+    return render(request, 'bookshelf/book_list.html', {'books': books})
+
