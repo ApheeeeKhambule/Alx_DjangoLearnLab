@@ -139,8 +139,6 @@ X_FRAME_OPTIONS = 'DENY'
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
-# settings.py
-
 # Enforce HTTPS redirects
 SECURE_SSL_REDIRECT = True
 
@@ -160,6 +158,27 @@ SECURE_BROWSER_XSS_FILTER = True
 
 # Handle secure connections behind a proxy
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# settings.py
+
+# Set DEBUG to False in production
+DEBUG = False
+
+# Security settings for browser-side protections
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Secure cookies
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# Ensure that cookies are sent over HTTPS only
+SECURE_SSL_REDIRECT = True
+
+# Handle secure connections behind a proxy
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
 
 
 
