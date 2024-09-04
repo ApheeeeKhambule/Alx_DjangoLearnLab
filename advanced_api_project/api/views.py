@@ -1,6 +1,4 @@
-from django.shortcuts import render
-
-# Create your views here.
+# api/views.py
 from rest_framework import generics
 from rest_framework.filters import DjangoFilterBackend, SearchFilter, OrderingFilter
 from .models import Book
@@ -23,3 +21,4 @@ class BookListView(generics.ListAPIView):
     filterset_class = BookFilter
     search_fields = ['title', 'author__name']
     ordering_fields = ['title', 'publication_year']
+
