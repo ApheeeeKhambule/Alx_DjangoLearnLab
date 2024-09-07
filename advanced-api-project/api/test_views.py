@@ -1,5 +1,6 @@
 from rest_framework.test import APITestCase
 from rest_framework import status
+from django.contrib.auth.models import User
 from .models import Book, Author
 from .serializers import BookSerializer
 
@@ -7,12 +8,17 @@ class BookAPITestCase(APITestCase):
     
     @classmethod
     def setUpTestData(cls):
+        cls.user = User.objects.create_user(username='testuser', password='testpassword')
         cls.author = Author.objects.create(name="Author Name")
         cls.book = Book.objects.create(
             title="Book Title",
             publication_year=2022,
             author=cls.author
         )
+    
+    def setUp(self):
+        # Log in the user for authentication
+        self.client.login(username='testuser', password='testpassword')
 
     def test_create_book(self):
         url = '/api/books/'
@@ -69,6 +75,8 @@ class BookAPITestCase(APITestCase):
         self.assertEqual(response.data[0]['title'], 'Book Title')  # Ensure ordering is correct
 
     def test_permissions(self):
-        # Add permission tests as needed based on your implementation
-        pass
-
+        # Testing without login
+        self.client.logout()  # Ensure user is logged out
+        url = '/api/books/'
+        response = self.client.post(url, {'title': 'Another Book', 'publication_year': 2023, 'author': self.author.id}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)  # Expecting forbidden access
