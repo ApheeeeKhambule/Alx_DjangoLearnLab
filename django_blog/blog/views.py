@@ -19,3 +19,14 @@ def register(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
+    
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        form = CustomUserUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = CustomUserUpdateForm(instance=request.user)
+    return render(request, 'profile/profile.html', {'form': form})
