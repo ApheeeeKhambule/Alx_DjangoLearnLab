@@ -1,5 +1,4 @@
-from django.urls import path
-from . import views
+
 from django.urls import path
 from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView
 
@@ -11,10 +10,3 @@ urlpatterns = [
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
 ]
 
-urlpatterns = [
-    path('login/', views.user_login, name='user_login'),
-    path('logout/', views.user_logout, name='user_logout'),
-    path('register/', views.user_register, name='user_register'),
-    path('profile/', views.user_profile, name='user_profile'),
-    # other URL patterns
-]
