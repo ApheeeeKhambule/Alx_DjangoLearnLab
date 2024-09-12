@@ -9,3 +9,13 @@ from .forms import CustomUserCreationForm
 # Create a view that renders the home.html template
 def home(request):
     return render(request, 'blog/home.html')
+    
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
