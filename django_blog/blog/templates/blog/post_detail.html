@@ -12,3 +12,32 @@
 <a href="{% url 'post-list' %}">Back to List</a>
 {% endblock %}
 
+<!-- templates/blog/post_detail.html -->
+{% extends "base_generic.html" %}
+{% block content %}
+    <h1>{{ object.title }}</h1>
+    <p>{{ object.content }}</p>
+
+    <h2>Comments</h2>
+    <ul>
+        {% for comment in comments %}
+            <li>
+                <strong>{{ comment.author }}</strong> on {{ comment.created_at }}
+                <p>{{ comment.content }}</p>
+                {% if user == comment.author %}
+                    <a href="{% url 'edit-comment' pk=comment.pk %}">Edit</a>
+                    <a href="{% url 'delete-comment' pk=comment.pk %}">Delete</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% if user.is_authenticated %}
+        <h2>Add a Comment</h2>
+        <form method="post" action="{% url 'add-comment' post_id=object.pk %}">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    {% endif %}
+{% endblock %}
