@@ -7,6 +7,24 @@ from .views import (
 from django.urls import path
 from . import views
 
+from django.urls import path
+from .views import CommentCreateView, CommentUpdateView, CommentDeleteView
+
+urlpatterns = [
+    # Other URL patterns for your blog app
+    
+    # URL pattern for creating a new comment
+    path('posts/<int:post_id>/comments/new/', CommentCreateView.as_view(), name='add_comment'),
+
+    # URL pattern for updating an existing comment
+    path('comments/<int:pk>/update/', CommentUpdateView.as_view(), name='edit_comment'),
+
+    # URL pattern for deleting an existing comment
+    path('comments/<int:pk>/delete/', CommentDeleteView.as_view(), name='delete_comment'),
+]
+
+
+
 urlpatterns = [
     # Other URL patterns
     path('tags/<slug:tag_slug>/', views.PostByTagListView.as_view(), name='posts_by_tag'),
