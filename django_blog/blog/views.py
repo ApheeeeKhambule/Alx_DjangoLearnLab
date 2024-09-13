@@ -20,6 +20,25 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Post, Comment
 from .forms import CommentForm
 
+from django.db.models import Q
+from django.shortcuts import render, get_object_or_404
+from .models import Post
+
+def search_posts(request):
+    query = request.GET.get('q')
+    if query:
+        results = Post.objects.filter(
+            Q(title__icontains=query) | 
+            Q(content__icontains=query) | 
+            Q(tags__name__icontains=query)
+        ).distinct()
+    else:
+        results = Post.objects.none()
+    
+    return render(request, 'blog/search_results.html', {'results': results, 'query': query})
+
+
+
 class PostDetailView(DetailView):
     model = Post
     template_name = 'blog/post_detail.html'
