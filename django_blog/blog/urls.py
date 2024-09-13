@@ -11,8 +11,8 @@ from django.urls import path
 from .views import CommentCreateView, CommentUpdateView, CommentDeleteView
 
 urlpatterns = [
-    # Other URL patterns for your blog app
-    
+    # Existing URL patterns for the blog app
+
     # URL pattern for creating a new comment
     path('posts/<int:post_id>/comments/new/', CommentCreateView.as_view(), name='add_comment'),
 
@@ -22,7 +22,6 @@ urlpatterns = [
     # URL pattern for deleting an existing comment
     path('comments/<int:pk>/delete/', CommentDeleteView.as_view(), name='delete_comment'),
 ]
-
 
 
 urlpatterns = [
