@@ -1,7 +1,9 @@
-
 from rest_framework import serializers
-from .models import CustomUser
+from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
+from rest_framework.authtoken.models import Token
+
+CustomUser = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,17 +18,21 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ('username', 'password', 'password2', 'email')
 
+    # Validate that the two password fields match
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
             raise serializers.ValidationError({"password": "Passwords do not match."})
         return attrs
 
+    # Create the user and also generate a token
     def create(self, validated_data):
-        user = CustomUser.objects.create(
+        user = CustomUser.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
+            password=validated_data['password']
         )
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
 
+        # Create a token for the user
+        Token.objects.create(user=user)
+
+        return user
