@@ -6,3 +6,4 @@ urlpatterns = [
     path('login/', LoginUser.as_view(), name='login'),
 ]
 ["unfollow/<int:user_id>/", "follow/<int:user_id>"]
+ ["feed/"]
