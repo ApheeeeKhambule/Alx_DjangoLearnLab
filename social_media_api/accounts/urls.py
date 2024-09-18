@@ -5,3 +5,4 @@ urlpatterns = [
     path('register/', RegisterUser.as_view(), name='register'),
     path('login/', LoginUser.as_view(), name='login'),
 ]
+["unfollow/<int:user_id>/", "follow/<int:user_id>"]
