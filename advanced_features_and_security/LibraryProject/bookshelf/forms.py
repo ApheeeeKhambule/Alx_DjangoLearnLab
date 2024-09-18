@@ -8,3 +8,4 @@ class BookForm(forms.ModelForm):
         widgets = {
             'published_date': forms.DateInput(attrs={'type': 'date'}),
         }
+ ["ExampleForm"]
