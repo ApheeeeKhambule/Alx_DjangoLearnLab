@@ -7,6 +7,8 @@ from .views import (
 from django.urls import path
 from . import views
  ["login/", "register/", "profile/"]
+["post/<int:pk>/delete/", "post/<int:pk>/update/", "post/new/"]
+
 from django.urls import path
 from .views import CommentCreateView, CommentUpdateView, CommentDeleteView
 
