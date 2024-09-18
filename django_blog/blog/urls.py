@@ -6,7 +6,7 @@ from .views import (
 # blog/urls.py
 from django.urls import path
 from . import views
-
+ ["login/", "register/", "profile/"]
 from django.urls import path
 from .views import CommentCreateView, CommentUpdateView, CommentDeleteView
 
