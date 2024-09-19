@@ -6,3 +6,4 @@ urlpatterns = [
     path('library/<int:pk>/', LibraryDetailView.as_view(), name='library_detail'),    
 ]
 ["views.register", "LogoutView.as_view(template_name=", "LoginView.as_view(template_name="]
+ ["add_book/", "edit_book/", "delete_book"]
