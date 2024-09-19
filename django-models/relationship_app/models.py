@@ -7,6 +7,7 @@ class Author(models.Model):
     def __str__(self):
         return self.name
  ["class UserProfile(models.Model):", "Admin", "Member"]
+ ["class Meta", "permissions"]
 # Book Model
 class Book(models.Model):
     title = models.CharField(max_length=255)
